@@ -1,9 +1,11 @@
+using LeaderboardCreatorDemo;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -12,6 +14,8 @@ public class GameManager : MonoBehaviour
     public int score = 0;
     public int highscore = 0;
     public int coins = 0;
+    public string username;
+    public TMP_InputField nameText;
 
     public bool doubleJump;
     public bool doubleOwned;
@@ -34,6 +38,8 @@ public class GameManager : MonoBehaviour
 
     public AudioMixer audioMixer;
 
+    public Board leaderboard;
+
     public void Start()
     {
         load();
@@ -45,6 +51,15 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1f;
         setMusic(MusicVolume);
         setEffects(effectsVolume);
+
+        if (invincibility)
+        { 
+            score = 4000;
+            gameSpeed = 46f;
+        }
+        nameText.text = username;
+        Debug.LogError(username);
+        leaderboard.UploadEntry(username);
     }
 
     public void Save() 
@@ -68,6 +83,7 @@ public class GameManager : MonoBehaviour
             inviOwned = data.inviOwned;
             effectsVolume = data.effectsVolume;
             MusicVolume = data.MusicVolume;
+            username = data.username;
         }
         else
         {
@@ -95,6 +111,7 @@ public class GameManager : MonoBehaviour
     public void AddCoins(int points)
     {
         coins += points;
+        score += 100;
     }
 
     private void Update()
@@ -139,6 +156,10 @@ public class GameManager : MonoBehaviour
     { 
         effectsVolume = volume;
         audioMixer.SetFloat("EffectsVolume", volume);
+    }
+    public void setName(string Name)
+    {
+        username = Name;
     }
 
 }

@@ -13,9 +13,9 @@ public class UpgradeScript : MonoBehaviour
     bool slowOwned = false;
     bool invincibility = false;
     bool inviOwned = false;
-    int doubleJumpPrice = 5;
-    int slowMoPrice = 10;
-    int invincibilityPrice = 15;
+    int doubleJumpPrice = 100;
+    int slowMoPrice = 250;
+    int invincibilityPrice = 500;
 
     public int coins = 0;
 
@@ -126,7 +126,7 @@ public class UpgradeScript : MonoBehaviour
 
     public void buyInvin()
     {
-        if (coins >= invincibilityPrice && !inviOwned)
+        if (coins >= invincibilityPrice && !inviOwned && FindObjectOfType<GameManager>().highscore >= 4000)
         {
             coins -= invincibilityPrice;
             inviOwned = true;

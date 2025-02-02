@@ -6,6 +6,7 @@ public class GunScript : MonoBehaviour
 {
     public float damage = 10f;
     public float range = 100f;
+    public Animator animator;
 
     public AudioSource sound;
 
@@ -26,6 +27,7 @@ public class GunScript : MonoBehaviour
 
     void Shoot() 
     {
+        animator.Play("shootAnim 0",0,0.0f);
         sound.Play();
         muzzleFlash.Play();
 

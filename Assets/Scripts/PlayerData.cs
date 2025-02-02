@@ -20,6 +20,8 @@ public class PlayerData
     public float effectsVolume = 0;
     public float sensitivity = 50;
 
+    public string username;
+
     public PlayerData(GameManager gameManager)
     {
         coins = gameManager.coins;
@@ -33,6 +35,7 @@ public class PlayerData
         slowOwned = gameManager.slowOwned;
         MusicVolume = gameManager.MusicVolume;
         effectsVolume = gameManager.effectsVolume;
+        username = gameManager.username;
 }
 
 }

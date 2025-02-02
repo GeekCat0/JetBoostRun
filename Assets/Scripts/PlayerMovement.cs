@@ -7,9 +7,11 @@ public class PlayerMovement : MonoBehaviour
 {
     public CharacterController controller;
     public GameObject jetSound;
+    public GameObject cameraTiltable;
+    public Vector3 move;
 
     public int speed = 15;
-    public float gravity = -9.81f;
+    public float gravity = -9.81f * 2;
     public float jumpHeight = 2f;
     public int jetForce = 1;
     public int jetMax = 1;
@@ -57,7 +59,7 @@ public class PlayerMovement : MonoBehaviour
 
             float x = Input.GetAxis("Horizontal");
 
-            Vector3 move = transform.right * x;
+            move = transform.right * x;
 
             controller.Move(move * speed * Time.deltaTime);
 
@@ -117,9 +119,9 @@ public class PlayerMovement : MonoBehaviour
             }
 
 
-            else if (Input.GetKeyDown(KeyCode.C) && !boosted && velocity.y > -Mathf.Sqrt(jumpHeight * -2f * gravity))
+            else if (Input.GetKeyDown(KeyCode.C))
             {
-                velocity.y = -Mathf.Sqrt(jumpHeight * -5f * gravity) + (jetForce * 0.1f);
+                velocity.y -= (jetForce * 0.3f);
                 boosted = true;
             }
 
@@ -131,7 +133,14 @@ public class PlayerMovement : MonoBehaviour
 
             if (!Input.GetButton("Jump"))
             {
-                velocity.y += gravity * Time.deltaTime;
+                if (velocity.y > 0f)
+                {
+                    velocity.y += (gravity * 2) * Time.deltaTime;
+                }
+                else
+                {
+                    velocity.y += gravity * Time.deltaTime;
+                }
             }
             controller.Move(velocity * Time.deltaTime);
         }
